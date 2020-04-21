@@ -2,6 +2,8 @@
   <img src="https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/bootcamp-header.png" alt="gostack" width="200">
 </p>
 
+yarn 
+
 Bootcamp GoStack - Desafio 01 - Conceitos de NodeJs
 
 Aplicação para armazenar repositórios e likes.
@@ -53,22 +55,36 @@ Listar todos repositories
 GET - '/repositories'
 
 Exibi um repository
-GET - '/repositories/1'
+@params uuid => Universally Unique Identifier 
+GET - '/repositories/uuid'
 
 Cadastra repository
 POST - '/repositories'
-request: { "id": 2, "title": "título" } (json)
+request: { 
+  "title": "url",
+  "url": ""
+  "techs": []
+}
 
-atualizar um repository
-param int id - Id do repository
-PUT - '/repositories/:id'
-corpo da requisição: { title: "título do repository" } (json)
+Atualizar um repository
+@params uuid => Universally Unique Identifier 
+PUT - '/repositories/:uuid'
+corpo da requisição: {
+  "title": "url",
+  "url": ""
+  "techs": []
+}
 
-deleta um repository
-param int id - Id do repository
-DELETE - '/repositories/:id'
+Delete um repository
+@params uuid => Universally Unique Identifier 
+DELETE - '/repositories/:uuid'
 
 Registra um like para um repository
-POST - '/repositories/:id/likes'
+@params uuid => Universally Unique Identifier 
+POST - '/repositories/:uuid/likes'
+
+Registra um dislike para um repository
+@params uuid => Universally Unique Identifier 
+POST - '/repositories/:uuid/dislikes'
 
 ```

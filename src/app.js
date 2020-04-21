@@ -47,12 +47,16 @@ app.put("/repositories/:id", (request, response) => {
     likes: repositories[findReposytoryIndex].likes
   };
 
-  repositories[findReposytoryIndex].repository;
+  repositories[findReposytoryIndex] = repository;
 
   return response.json(repository);
 
 });
 
+/**
+ * Delete repository
+ * @param uuid => Universally Unique Identifier 
+ */
 app.delete("/repositories/:id", (request, response) => {
   let { id } = request.params;
 
@@ -65,9 +69,12 @@ app.delete("/repositories/:id", (request, response) => {
   }
 
   return response.status(204).send();
-
 });
 
+/**
+ * Increment likes for repository
+ * @params uuid / likes
+ */
 app.post("/repositories/:id/like", (request, response) => {
   let { id } = request.params;
 
@@ -78,6 +85,24 @@ app.post("/repositories/:id/like", (request, response) => {
   }
   
   repositories[findReposytoryIndex].likes += 1;
+
+  return response.json(repositories[findReposytoryIndex]);
+
+});
+
+app.post("/repositories/:id/dislike", (request, response) => {
+  let { id } = request.params;
+
+  let findReposytoryIndex = repositories.findIndex(repository => repository.id === id);
+  
+  if(findReposytoryIndex === -1) {
+    return response.status(400).json({error: 'Repository does not exists'});
+  }
+
+  //not dislike < 0
+  if(repositories[findReposytoryIndex].likes > 0) {
+    repositories[findReposytoryIndex].likes -= 1;
+  }
 
   return response.json(repositories[findReposytoryIndex]);
 
